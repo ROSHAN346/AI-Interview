@@ -63,14 +63,18 @@ Generate a list of interview questions to match the interview duration
 Adjust the number and depth of questions to match the interview duration.
 Ensure the questions match the tone and structure of real-life {{type}} interview.
 
-Format your response in JSON format with array list of qeustions.
-format : interviewQuestions=[
+Return the result as a JSON object in the following format:
+
 {
-    question:",
-    type:'Technical/Behavioral/Experience/Problem Sovling /Leadership'
-},{
-...
-}]
+  "questions": [
+    {
+      "question": "string",
+      "type": "string"
+    },
+    ...
+  ]
+}
+
 
 The goal is to create a structured , relevant , and time-optimized interview plan for a {{jobPosition}} role.
 `

@@ -5,11 +5,10 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   const { jobPosition, jobDescription, duration, type } = await req.json();
 
-  const FINAL_PROMPT = INTERVIEW_PROMPT
-    .replace('{{jobPosition}}', jobPosition)
-    .replace('{{jobDescription}}', jobDescription)
-    .replace('{{duration}}', duration)
-    .replace('{{type}}', type);
+  const FINAL_PROMPT = INTERVIEW_PROMPT.replace("{{jobPosition}}", jobPosition)
+    .replace("{{jobDescription}}", jobDescription)
+    .replace("{{duration}}", duration)
+    .replace("{{type}}", type);
 
   console.log("🔍 Prompt sent to AI:\n", FINAL_PROMPT);
 
@@ -22,7 +21,6 @@ export async function POST(req) {
     // You can change the fallback model here if needed
     const model = "mistralai/mistral-7b-instruct:free"; // fallback while Gemini quota resets
 
-
     const completion = await openai.chat.completions.create({
       model,
       messages: [{ role: "user", content: FINAL_PROMPT }],
@@ -33,16 +31,31 @@ export async function POST(req) {
 
     if (!completion.choices || completion.choices.length === 0) {
       console.error("❌ No choices returned by model.");
-      return NextResponse.json({ error: "AI didn't return any content." }, { status: 500 });
+      return NextResponse.json(
+        { error: "AI didn't return any content." },
+        { status: 500 }
+      );
     }
 
     const responseMessage = completion.choices[0].message;
+
     console.log("✅ AI Response:", responseMessage);
 
-    return NextResponse.json({
-      questions: responseMessage.content.split('\n').filter(q => q.trim() !== ""),
-    });
+    let questions = [];
+    try {
+      const parsed = JSON.parse(responseMessage.content);
+      questions = parsed.questions || [];
+    } catch (err) {
+      console.error("❌ Failed to parse AI JSON:", err);
+      return NextResponse.json(
+        { error: "AI returned invalid JSON." },
+        { status: 500 }
+      );
+    }
 
+    return NextResponse.json({
+      questions,
+    });
   } catch (e) {
     console.error("❌ OpenAI Error:", e);
 

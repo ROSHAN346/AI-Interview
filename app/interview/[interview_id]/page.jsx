@@ -69,7 +69,7 @@ function Interview() {
 
       setInterviewInfo(
         { userName : userName ,
-            interviewData : Interview[0]?.questions
+            interviewData : Interviews[0]
         }
     );
       router.push(`/interview/${interview_id}/start`);

@@ -67,7 +67,11 @@ function Interview() {
         return;
       }
 
-      setInterviewInfo({ userName });
+      setInterviewInfo(
+        { userName : userName ,
+            interviewData : Interview[0]?.questions
+        }
+    );
       router.push(`/interview/${interview_id}/start`);
     } catch (error) {
       toast("Error joining the interview");

@@ -96,7 +96,7 @@ function Interview() {
           className="w-[280px] my-6"
         />
 
-        <h2 className="font-bold text-xl">{interviewData?.jobPostion}</h2>
+        <h2 className="font-bold text-xl">{interviewData?.jobPosition}</h2>
         <h2 className="flex gap-2 items-center text-gray-500 mt-3">
           <Clock />
           {interviewData?.duration}

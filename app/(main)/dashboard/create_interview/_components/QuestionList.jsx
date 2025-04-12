@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from 'uuid';
 
-function QuestionList({ formData }) {
+function QuestionList({ formData , onCreateLink }) {
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
 
@@ -57,6 +57,10 @@ function QuestionList({ formData }) {
       ])
       .select();
       setSaveLoading(false);
+
+      onCreateLink(
+        interview_id 
+      )
       console.log(data); 
   };
 
@@ -107,7 +111,7 @@ function QuestionList({ formData }) {
       <div className="flex justify-end mt-10">
         <Button onClick={() => onFinish()}  disabled={saveLoading}>
           {saveLoading && <Loader2Icon className="animate-spin "></Loader2Icon>}
-          Finish
+          Create Interview Link & Finish 
           </Button>
       </div>
     </div>

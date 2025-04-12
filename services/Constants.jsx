@@ -74,7 +74,5 @@ Return the result as a JSON object in the following format:
     ...
   ]
 }
-
-
 The goal is to create a structured , relevant , and time-optimized interview plan for a {{jobPosition}} role.
 `
